@@ -80,12 +80,13 @@
         //contenedorPistola
         contenedorPistola.scale.set(0.1,0.1,0.1);
         contenedorPistola.position.set(camera.position.x+3,camera.position.y-5,camera.position.z-10)
-        contenedorPistola.rotation.x=camera.rotation.x;
-        contenedorPistola.rotation.y=camera.rotation.y-Math.PI/2;
-        contenedorPistola.rotation.z=camera.rotation.z;
+        
         camera.add(contenedorPistola);
         var animate = function () {
             update();
+            contenedorPistola.rotation.x=camera.rotation.x;
+        contenedorPistola.rotation.y=camera.rotation.y-Math.PI/2;
+        contenedorPistola.rotation.z=camera.rotation.z;
             requestAnimationFrame(animate);
             effect.render(scene, camera);
             //renderer.render(scene, camera);
