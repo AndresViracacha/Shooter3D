@@ -20,10 +20,11 @@
     <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
     <script>
         //Variable
+        
         var scene = new THREE.Scene();
         var contenedorPistola = new THREE.Object3D();
         var contenedorCamara = new THREE.Object3D();
-        var contenedorPrueba = new THREE.Object3D();
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         var clock = new THREE.Clock();
         var renderer = new THREE.WebGLRenderer();
@@ -40,10 +41,12 @@
         effect.setSize(window.innerWidth, window.innerHeight);
 
         //cubo
-        var geometry = new THREE.BoxGeometry();
-        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        var cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+        var geometryy = new THREE.SphereGeometry();
+        var materialy = new THREE.MeshLambertMaterial({ color: 0x0000FF });
+        var aguacate = new THREE.Mesh(geometryy, materialy);
+        aguacate.scale.set(10,10,10)
+        aguacate.name="10";
+        scene.add(aguacate);
 
 
         //luces
@@ -53,25 +56,20 @@
 
         var loader = new THREE.FBXLoader();
         //tiene 36 caras|
-        loader.load('Modelos3d/Pistola.fbx', function (object) {
-            object.traverse(function (child) {
+        loader.load('Modelos3d/Pistola.fbx', function (objects) {
+            objects.traverse(function (child) {
                 if (child.isMesh) {
                     child.castShadow = true;
                     child.receiveShadow = true;
                 }
             });
-            console.log(object);
-            object.name = "jelo";
-            object.rotation.y = -Math.PI / 2;
-            object.scale.set(1, 1, 1);
-            scene.add(object);
-            contenedorPistola.add(object);
+            console.log(objects);
+            objects.name = "jelo";
+            objects.rotation.y = -Math.PI / 2;
+            objects.scale.set(1, 1, 1);
+            scene.add(objects);
+            contenedorPistola.add(objects);
         });
-
-
-
-        //OBJ
-        console.log(loader);
 
         camera.position.z = 100;
 
@@ -83,7 +81,7 @@
         //contenedorCamara
         contenedorCamara.add(camera);
         contenedorCamara.add(contenedorPistola);
-        contenedorCamara.rotation.x = 2;
+        contenedorCamara.position.x = 10;
         scene.add(contenedorCamara);
 
 
@@ -96,7 +94,7 @@
         container.appendChild(stats.domElement);
 
 
-        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+
         var animate = function () {
             update();
             requestAnimationFrame(animate);
@@ -104,9 +102,7 @@
             //renderer.render(scene, camera);
 
         };
-
         animate();
-
         function update() {
             var delta = clock.getDelta();
             stats.update();
