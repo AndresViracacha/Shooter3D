@@ -4,38 +4,64 @@
 <head>
     <title>Document</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"
         integrity="sha512-yNJzAsg5JyP91u+sLHlUDULMBd3hmEiVkYeeN1cQBKaLZ7EyT6oH2u5THNIRM2Fu6VKcZJv+F/QAp1h/qzy9Ow=="
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
     <script src="js/librerias/stats.min.js"></script>
+    <script src="js/librerias/inflate.min.js"></script>
+    <script src="js/librerias/FBXLoader.js"></script>
 </head>
 
 <body>
     <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
     <script>
         var scene = new THREE.Scene();
+        scene.background = new THREE.Color( 0xbfe3dd );
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         var clock = new THREE.Clock();
+
 
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         container = document.getElementById('ThreeJS');
         container.appendChild(renderer.domElement);
 
+        //Stats
         stats = new Stats();
         stats.domElement.style.position = 'absolute';
         stats.domElement.style.bottom = '0px';
         stats.domElement.style.zIndex = 100;
         container.appendChild(stats.domElement);
 
+        //Luz
+        var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+        scene.add( light );
+
+        //OBJ
+        var loader = new THREE.FBXLoader();
+        loader.load('Modelos3d/Pistola.fbx', function (object) {
+            object.traverse(function (child) {
+                if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+            console.log(object);
+            object.name = "jelo";
+            object.rotation.y = -Math.PI / 2;
+            object.scale.set(10, 10, 10);
+            scene.add(object);
+        });
+
+        //cubo
         var geometry = new THREE.BoxGeometry();
         var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         var cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
-        camera.position.z = 5;
+        camera.position.z = 100;
 
         var animate = function () {
             update();
