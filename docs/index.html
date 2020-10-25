@@ -27,7 +27,7 @@
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         var clock = new THREE.Clock();
         var renderer = new THREE.WebGLRenderer();
-        var controls = new THREE.DeviceOrientationControls(camera);
+        
 
         scene.background = new THREE.Color(0xbfe3dd);
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -96,6 +96,7 @@
         container.appendChild(stats.domElement);
 
 
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
         var animate = function () {
             update();
             requestAnimationFrame(animate);
