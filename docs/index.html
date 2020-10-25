@@ -41,12 +41,13 @@
         effect.setSize(window.innerWidth, window.innerHeight);
 
         //cubo
-        var geometryy = new THREE.SphereGeometry();
-        var materialy = new THREE.MeshLambertMaterial({ color: 0x0000FF });
-        var aguacate = new THREE.Mesh(geometryy, materialy);
-        aguacate.scale.set(10,10,10)
-        aguacate.name="10";
-        scene.add(aguacate);
+        var geometry = new THREE.PlaneBufferGeometry( 500, 2000, 32 );
+var material = new THREE.MeshLambertMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+var plane = new THREE.Mesh( geometry, material );
+plane.position.y=-1000;
+plane.rotation.x=3;
+scene.add( plane );
+       
 
 
         //luces
@@ -97,6 +98,7 @@
 
         var animate = function () {
             update();
+            contenedorCamara.rotation.x+=1;
             requestAnimationFrame(animate);
             effect.render(scene, camera);
             //renderer.render(scene, camera);
