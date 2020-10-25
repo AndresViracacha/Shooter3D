@@ -13,6 +13,7 @@
     <script src="js/librerias/inflate.min.js"></script>
     <script src="js/librerias/FBXLoader.js"></script>
     <script src="js/librerias/StereoEffect.js"></script>
+    <script src="js/librerias/DeviceOrientationControls.js"></script>
 </head>
 
 <body>
@@ -23,6 +24,7 @@
         scene.background = new THREE.Color( 0xbfe3dd );
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         var clock = new THREE.Clock();
+        var controls = new THREE.DeviceOrientationControls( camera );
 
 
         var renderer = new THREE.WebGLRenderer();
@@ -42,6 +44,7 @@
         container.appendChild(stats.domElement);
 
         var loader = new THREE.FBXLoader();
+        //tiene 36 caras|
         loader.load('Modelos3d/Pistola.fbx', function (object) {
             object.traverse(function (child) {
                 if (child.isMesh) {
@@ -75,6 +78,7 @@
             contenedorPistola.rotation.z+=0.1;            
             requestAnimationFrame(animate);
             effect.render(scene, camera);
+            //renderer.render(scene, camera);
 
         };
 
@@ -83,6 +87,7 @@
         function update() {
             var delta = clock.getDelta();
             stats.update();
+            controls.update();
         }
 
         //llllllllllllllllllllllllllllllllllllllllllllllllllllllll
