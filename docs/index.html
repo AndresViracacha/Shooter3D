@@ -19,35 +19,37 @@
 <body>
     <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
     <script>
+        //Variable
         var scene = new THREE.Scene();
-        contenedorPistola = new THREE.Object3D();
-        scene.background = new THREE.Color( 0xbfe3dd );
+        var contenedorPistola = new THREE.Object3D();
+        var contenedorCamara = new THREE.Object3D();
+        var contenedorPrueba = new THREE.Object3D();
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         var clock = new THREE.Clock();
-        var controls = new THREE.DeviceOrientationControls( camera );
-
-
         var renderer = new THREE.WebGLRenderer();
+        var controls = new THREE.DeviceOrientationControls(camera);
+
+        scene.background = new THREE.Color(0xbfe3dd);
         renderer.setSize(window.innerWidth, window.innerHeight);
         container = document.getElementById('ThreeJS');
         container.appendChild(renderer.domElement);
 
+
         //stereo
-        effect = new THREE.StereoEffect( renderer );
-		effect.setSize( window.innerWidth, window.innerHeight );
+        effect = new THREE.StereoEffect(renderer);
+        effect.setSize(window.innerWidth, window.innerHeight);
 
         //cubo
         var geometry = new THREE.BoxGeometry();
-			var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
 
-        //Stats
-        stats = new Stats();
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.bottom = '0px';
-        stats.domElement.style.zIndex = 100;
-        container.appendChild(stats.domElement);
+
+        //luces
+        var light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+        scene.add(light);
+
 
         var loader = new THREE.FBXLoader();
         //tiene 36 caras|
@@ -61,16 +63,12 @@
             console.log(object);
             object.name = "jelo";
             object.rotation.y = -Math.PI / 2;
-            object.scale.set(10, 10, 10);
+            object.scale.set(1, 1, 1);
             scene.add(object);
-            scene.add(contenedorPistola);
             contenedorPistola.add(object);
         });
 
-       
-        //Luz
-        var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
-        scene.add( light );
+
 
         //OBJ
         console.log(loader);
@@ -78,15 +76,28 @@
         camera.position.z = 100;
 
         //contenedorPistola
-        contenedorPistola.scale.set(0.1,0.1,0.1);
-        contenedorPistola.position.set(camera.position.x+3,camera.position.y-5,camera.position.z-10)
-        
-        camera.add(contenedorPistola);
+        contenedorPistola.position.set(camera.position.x + 3, camera.position.y - 5, camera.position.z - 10)
+        contenedorPistola.rotation.y = camera.rotation.y - Math.PI / 2;
+        scene.add(contenedorPistola);
+
+        //contenedorCamara
+        contenedorCamara.add(camera);
+        contenedorCamara.add(contenedorPistola);
+        contenedorCamara.rotation.x = 2;
+        scene.add(contenedorCamara);
+
+
+
+        //Estadisticas
+        stats = new Stats();
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.bottom = '0px';
+        stats.domElement.style.zIndex = 100;
+        container.appendChild(stats.domElement);
+
+
         var animate = function () {
             update();
-            contenedorPistola.rotation.x=camera.rotation.x;
-        contenedorPistola.rotation.y=camera.rotation.y-Math.PI/2;
-        contenedorPistola.rotation.z=camera.rotation.z;
             requestAnimationFrame(animate);
             effect.render(scene, camera);
             //renderer.render(scene, camera);
@@ -102,7 +113,7 @@
         }
 
         //llllllllllllllllllllllllllllllllllllllllllllllllllllllll
-        
+
     </script>
 </body>
 
