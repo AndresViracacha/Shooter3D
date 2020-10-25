@@ -18,6 +18,7 @@
     <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
     <script>
         var scene = new THREE.Scene();
+        contenedorPistola = new THREE.Object3D();
         scene.background = new THREE.Color( 0xbfe3dd );
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         var clock = new THREE.Clock();
@@ -35,11 +36,6 @@
         stats.domElement.style.zIndex = 100;
         container.appendChild(stats.domElement);
 
-        //Luz
-        var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
-        scene.add( light );
-
-        //OBJ
         var loader = new THREE.FBXLoader();
         loader.load('Modelos3d/Pistola.fbx', function (object) {
             object.traverse(function (child) {
@@ -53,14 +49,28 @@
             object.rotation.y = -Math.PI / 2;
             object.scale.set(10, 10, 10);
             scene.add(object);
+            scene.add(contenedorPistola);
+            contenedorPistola.add(object);
+
+            
         });
+
+       
+        //Luz
+        var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+        scene.add( light );
+
+        //OBJ
+        console.log(loader);
 
         camera.position.z = 100;
 
         var animate = function () {
             update();
+            contenedorPistola.rotation.z+=0.1;            
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
+
         };
 
         animate();
