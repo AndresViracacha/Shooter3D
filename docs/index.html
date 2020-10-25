@@ -12,6 +12,7 @@
     <script src="js/librerias/stats.min.js"></script>
     <script src="js/librerias/inflate.min.js"></script>
     <script src="js/librerias/FBXLoader.js"></script>
+    <script src="js/librerias/StereoEffect.js"></script>
 </head>
 
 <body>
@@ -28,6 +29,10 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         container = document.getElementById('ThreeJS');
         container.appendChild(renderer.domElement);
+
+        //stereo
+        effect = new THREE.StereoEffect( renderer );
+		effect.setSize( window.innerWidth, window.innerHeight );
 
         //Stats
         stats = new Stats();
@@ -69,7 +74,7 @@
             update();
             contenedorPistola.rotation.z+=0.1;            
             requestAnimationFrame(animate);
-            renderer.render(scene, camera);
+            effect.render(scene, camera);
 
         };
 
