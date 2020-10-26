@@ -50,6 +50,10 @@
         var cube = new THREE.Mesh( geometry, material );
         scene.add( cube );
 
+        //stereo
+        effect = new THREE.StereoEffect(renderer);
+        effect.setSize(window.innerWidth, window.innerHeight);
+
         //FBX-------------------------------------------------------
         var loader = new THREE.FBXLoader();
         //tiene 36 caras|
@@ -63,6 +67,7 @@
         });
         //añadimos el arma y la colocamos
         scene.add(contenedorPistola)
+        contenedorPistola.position.set(3,-4,-5)
 
         contenedorCamara.add(camera)
         contenedorCamara.add(contenedorPistola)
@@ -83,7 +88,8 @@
             stats.update();
             controls.update();            
             requestAnimationFrame( animate );
-            renderer.render( scene, camera );
+            //renderer.render( scene, camera );
+            effect.render( scene, camera );
         };
 
         animate();
