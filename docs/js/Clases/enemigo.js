@@ -1,5 +1,5 @@
 function Enemigo() {
-    
+    var clock = new THREE.Clock();
     var explosionTexture = new THREE.ImageUtils.loadTexture('images/sans.png');
         var boomer = new TextureAnimator(explosionTexture, 4, 1, 24, 200); // texture, #horiz, #vert, #total, duration.
         var explosionMaterial = new THREE.MeshBasicMaterial({ map: explosionTexture, side: THREE.DoubleSide });
@@ -8,7 +8,7 @@ function Enemigo() {
         this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
         this.cube.position.set(0, 5, 0);
         var cubes=this.cube;
-    this.crear = function(clock,camera){
+    this.crear = function(camera){
         scene.add(this.cube);
         cubes.position.z++;
         //MIRAR SIEMPRE A LA CAMARA
@@ -20,18 +20,18 @@ function Enemigo() {
             angulo = -angulo
         
         cubes.rotation.y = angulo;
+        //Animacion objeto
         var delta = clock.getDelta();
         boomer.update(1000 * delta);
         }
-    this.animate = function (clock,camera) {
-        
-    }
+    
 }
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration) {
     // note: texture passed by reference, will be updated by the update function.
 
     this.tilesHorizontal = tilesHoriz;
     this.tilesVertical = tilesVert;
+
     // how many images does this spritesheet contain?
     //  usually equals tilesHoriz * tilesVert, but not necessarily,
     //  if there at blank tiles at the bottom of the spritesheet. 

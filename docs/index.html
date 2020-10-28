@@ -20,10 +20,11 @@
 <body>
     <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
     <script>
+        var clock = new THREE.Clock();
         //Escena
         var scene = new THREE.Scene();
         scene.background = new THREE.Color(0xFFFFFF);
-        var clock = new THREE.Clock();
+        
 
         //Camara
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -81,29 +82,28 @@
 
         //el pepe
         let enemigos=[];
-        var elpepe = new Enemigo;
-        function crear(clock,contenedorCamara) {
+        function crearEnemigos(contenedorCamara) {
             enemigos.push(new Enemigo)
             enemigos.push(new Enemigo)
             enemigos.push(new Enemigo)
-            enemigos[0].crear(clock,contenedorCamara)
-            enemigos[1].crear(clock,contenedorCamara)
-            enemigos[2].crear(clock,contenedorCamara)
+            enemigos[0].crear(contenedorCamara)
+            enemigos[1].crear(contenedorCamara)
+            enemigos[2].crear(contenedorCamara)
             enemigos[0].cube.position.x=40
             enemigos[1].cube.position.x=0
             enemigos[2].cube.position.x=-40
             
         }
         //DeviceOrientation
-        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //animateeeeeeeeeeeeeeeeeee
         var i = 0;
         var animate = function () {
-            crear(clock,contenedorCamara);
+            crearEnemigos(contenedorCamara);
             var delta = clock.getDelta();
             stats.update(); 
-            controls.update();            
+            //controls.update();            
             requestAnimationFrame(animate);
             //renderer.render( scene, camera );
             effect.render(scene, camera);
