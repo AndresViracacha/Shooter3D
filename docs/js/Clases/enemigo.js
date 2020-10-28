@@ -1,26 +1,30 @@
 function Enemigo() {
+    
     var explosionTexture = new THREE.ImageUtils.loadTexture('images/sans.png');
-    var boomer = new TextureAnimator(explosionTexture, 4, 1, 24, 200); // texture, #horiz, #vert, #total, duration.
-    var explosionMaterial = new THREE.MeshBasicMaterial({ map: explosionTexture, side: THREE.DoubleSide });
-    explosionMaterial.transparent = true
-    var cubeGeometry = new THREE.PlaneGeometry(100, 120);
-    this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
-    this.cube.position.set(0, 50, 0);
-    scene.add(this.cube);
-
-    var cubes=this.cube;
-    this.animate = function (clock,camera) {
+        var boomer = new TextureAnimator(explosionTexture, 4, 1, 24, 200); // texture, #horiz, #vert, #total, duration.
+        var explosionMaterial = new THREE.MeshBasicMaterial({ map: explosionTexture, side: THREE.DoubleSide });
+        explosionMaterial.transparent = true
+        var cubeGeometry = new THREE.PlaneGeometry(10, 12);
+        this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
+        this.cube.position.set(0, 5, 0);
+        var cubes=this.cube;
+    this.crear = function(clock,camera){
+        scene.add(this.cube);
+        cubes.position.z++;
+        //MIRAR SIEMPRE A LA CAMARA
         var x = -cubes.position.x + camera.position.x;
         var z = -cubes.position.z + camera.position.z;
         var hipotenusa = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2))
         var angulo = (Math.acos(z / hipotenusa));
-        if (x < 0) {
+        if (x < 0) 
             angulo = -angulo
-        }
-        //console.log(angulo / (Math.PI / 180))
+        
         cubes.rotation.y = angulo;
         var delta = clock.getDelta();
-        boomer.update(100000 * delta);
+        boomer.update(1000 * delta);
+        }
+    this.animate = function (clock,camera) {
+        
     }
 }
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration) {
