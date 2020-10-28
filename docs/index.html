@@ -14,20 +14,19 @@
     <script src="js/librerias/FBXLoader.js"></script>
     <script src="js/librerias/StereoEffect.js"></script>
     <script src="js/librerias/DeviceOrientationControls.js"></script>
+    <script src="js/Clases/enemigoprueba2.js"></script>
 </head>
 
 <body>
     <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
     <script>
-        var clock = new THREE.Clock();
-        
         //Escena
         var scene = new THREE.Scene();
         scene.background = new THREE.Color(0xFFFFFF);
+        var clock = new THREE.Clock();
+
         //Camara
         var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
-        
 
         //Contenedores
         var contenedorPistola = new THREE.Object3D();
@@ -71,14 +70,19 @@
 
         contenedorCamara.add(camera)
         contenedorCamara.add(contenedorPistola)
-        contenedorCamara.position.z=10
+        contenedorCamara.position.z=100
+        contenedorCamara.position.x=20
 
+        //stats
         stats = new Stats();
         stats.domElement.style.position = 'absolute';
         stats.domElement.style.bottom = '0px';
         stats.domElement.style.zIndex = 100;
         container.appendChild(stats.domElement);
         
+        //el pepe
+        var elpepe = new Enemigo;
+
         //DeviceOrientation
         var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
@@ -86,97 +90,13 @@
         var animate = function () {
             var delta = clock.getDelta();
             stats.update();
+            elpepe.animate(clock,contenedorCamara)
             controls.update();            
             requestAnimationFrame( animate );
             //renderer.render( scene, camera );
             effect.render( scene, camera );
         };
-
         animate();
-
-      /*   //Variable
-        
-        var scene = new THREE.Scene();
-        var contenedorPistola = new THREE.Object3D();
-        var contenedorCamara = new THREE.Object3D();
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        var clock = new THREE.Clock();
-        var controls = new THREE.DeviceOrientationControls(camera);
-        var renderer = new THREE.WebGLRenderer();
-        
-
-        scene.background = new THREE.Color(0xbfe3dd);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        container = document.getElementById('ThreeJS');
-        container.appendChild(renderer.domElement);
-
-
-        //stereo
-        effect = new THREE.StereoEffect(renderer);
-        effect.setSize(window.innerWidth, window.innerHeight);
-
-        //luces
-        var light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
-        scene.add(light);
-
-        
-
-        var loader = new THREE.FBXLoader();
-        //tiene 36 caras|
-        loader.load('Modelos3d/Pistola.fbx', function (objects) {
-            objects.traverse(function (child) {
-                if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-            console.log(objects);
-            objects.name = "jelo";
-            objects.rotation.y = -Math.PI / 2;
-            objects.scale.set(1, 1, 1);
-            scene.add(objects);
-            contenedorPistola.add(objects);
-            scene.add(contenedorPistola);
-        });
-
-        camera.position.z = 100;
-
-        //contenedorPistola
-        contenedorPistola.position.set(camera.position.x + 3, camera.position.y - 5, camera.position.z - 10)
-        contenedorPistola.rotation.y = camera.rotation.y - Math.PI / 2;
-        
-
-        //contenedorCamara
-        
-        
-
-
-
-        //Estadisticas
-        stats = new Stats();
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.bottom = '0px';
-        stats.domElement.style.zIndex = 100;
-        container.appendChild(stats.domElement);
-
-
-
-        var animate = function () {
-            update();
-            requestAnimationFrame(animate);
-            effect.render(scene, camera);
-            //renderer.render(scene, camera);
-
-        };
-        animate();
-        function update() {
-            var delta = clock.getDelta();
-            stats.update();
-            controls.update();
-        }
-
-        //llllllllllllllllllllllllllllllllllllllllllllllllllllllll */
-
     </script>
 </body>
 
