@@ -95,7 +95,7 @@
             
         }
         //DeviceOrientation
-        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //animateeeeeeeeeeeeeeeeeee
         var i = 0;
@@ -103,7 +103,7 @@
             crear(clock,contenedorCamara);
             var delta = clock.getDelta();
             stats.update(); 
-            //controls.update();            
+            controls.update();            
             requestAnimationFrame(animate);
             //renderer.render( scene, camera );
             effect.render(scene, camera);
