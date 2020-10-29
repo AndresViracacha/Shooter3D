@@ -4,6 +4,8 @@ function Enemigo() {
         var boomer = new TextureAnimator(explosionTexture, 4, 1, 24, 200); // texture, #horiz, #vert, #total, duration.
         var explosionMaterial = new THREE.MeshBasicMaterial({ map: explosionTexture, side: THREE.DoubleSide });
         explosionMaterial.transparent = true
+        explosionMaterial.depthTest = true
+        explosionMaterial.depthWrite = false
         var cubeGeometry = new THREE.PlaneGeometry(10, 12);
         this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
         this.cube.position.set(0, 5, 0);
@@ -62,3 +64,6 @@ function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDurat
         }
     };
 }	
+function alerta() {
+    alert("omg")
+}

@@ -21,6 +21,7 @@
     <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
     <script>
         var clock = new THREE.Clock();
+        var enemigoNumero = 0;
         //Escena
         var scene = new THREE.Scene();
         scene.background = new THREE.Color(0xFFFFFF);
@@ -82,25 +83,32 @@
 
         //el pepe
         let enemigos=[];
-        function crearEnemigos(contenedorCamara) {
-            enemigos.push(new Enemigo)
-            enemigos.push(new Enemigo)
-            enemigos.push(new Enemigo)
-            enemigos[0].crear(contenedorCamara)
-            enemigos[1].crear(contenedorCamara)
-            enemigos[2].crear(contenedorCamara)
-            enemigos[0].cube.position.x=40
-            enemigos[1].cube.position.x=0
-            enemigos[2].cube.position.x=-40
-            
+        var i = 0;
+        function crearEnemigos(contenedorCamara,numero) {
+            if(i==200){
+                enemigos.push(new Enemigo)
+                i=0;
+            }
+            if(enemigos.length>0){
+                for (let i = 0; i < enemigos.length; i++) {
+                    enemigos[i].crear(contenedorCamara)
+                    enemigos[i].cube.position.x=5
+                }
+            }
+            i++;
         }
+
         //DeviceOrientation
         var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //animateeeeeeeeeeeeeeeeeee
-        var i = 0;
+        
         var animate = function () {
             crearEnemigos(contenedorCamara);
+            
+
+
+
             var delta = clock.getDelta();
             stats.update(); 
             controls.update();            
