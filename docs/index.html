@@ -5,9 +5,8 @@
     <title>El Pepe</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"
-        integrity="sha512-yNJzAsg5JyP91u+sLHlUDULMBd3hmEiVkYeeN1cQBKaLZ7EyT6oH2u5THNIRM2Fu6VKcZJv+F/QAp1h/qzy9Ow=="
-        crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.js" integrity="sha512-iaZ8D6RzguOWQ+B5SLJCHPid3/2UaVIFnsNJHy068pv3r5G6kYOe+XufLqd6qNrQmaHeYR0iVyu2xkXB2llnMg==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
     <script src="js/librerias/stats.min.js"></script>
     <script src="js/librerias/inflate.min.js"></script>
@@ -22,10 +21,13 @@
     <script>
         var clock = new THREE.Clock();
         var enemigoNumero = 0;
+        //VARIABLES RAYCAST
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
         //Escena
         var scene = new THREE.Scene();
         scene.background = new THREE.Color(0xFFFFFF);
-        
+
 
         //Camara
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -40,6 +42,13 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         container = document.getElementById('ThreeJS');
         container.appendChild(renderer.domElement);
+
+        //mouse para RAYCAST
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) *2- 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        }
+        window.addEventListener('mousemove', onMouseMove, false);
 
         //luces
         var light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
@@ -82,22 +91,22 @@
         container.appendChild(stats.domElement);
 
         //el pepe
-        let enemigos=[];
+        let enemigos = [];
         var i = 0;
-        function crearEnemigos(contenedorCamara,numero) {
-            if(i==200){
+        function crearEnemigos(contenedorCamara, numero) {
+            if (i == 200) {
                 enemigos.push(new Enemigo)
-                i=0;
+                i = 0;
             }
-            if(enemigos.length>0){
+            if (enemigos.length > 0) {
                 for (let i = 0; i < enemigos.length; i++) {
                     enemigos[i].crear(contenedorCamara)
-                    enemigos[i].cube.position.x=5
+                    enemigos[i].cube.position.x = 5
                 }
             }
             i++;
         }
-
+        
         //DeviceOrientation
         var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
@@ -105,14 +114,16 @@
         
         var animate = function () {
             crearEnemigos(contenedorCamara);
-            
-
-
-
+            raycaster.setFromCamera(mouse, contenedorCamara.children[0]);
             var delta = clock.getDelta();
-            stats.update(); 
+            stats.update();
             controls.update();            
             requestAnimationFrame(animate);
+            var intersects = raycaster.intersectObjects(scene.children);
+            if(intersects[0]){
+                contenedorPistola.children[0].position.y=5
+            }
+            console.log(intersects)
             //renderer.render( scene, camera );
             effect.render(scene, camera);
         };
