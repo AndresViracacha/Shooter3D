@@ -118,7 +118,7 @@
         }, false);
 
         //DeviceOrientation
-        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //animateeeeeeeeeeeeeeeeeee
 
@@ -128,7 +128,7 @@
             raycaster.setFromCamera(mouse, contenedorCamara.children[0]);
             var delta = clock.getDelta();
             stats.update();
-            //controls.update();
+            controls.update();
             requestAnimationFrame(animate);
             var intersects = raycaster.intersectObjects(scene.children);
             if (intersects[0] && a==0) {
