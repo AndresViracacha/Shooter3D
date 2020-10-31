@@ -10,8 +10,8 @@ function Enemigo() {
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
     this.cube.position.set(0, 5, 0);
     var cubes = this.cube;
+    scene.add(this.cube);
     this.crear = function (camera) {
-        scene.add(this.cube);
         cubes.position.z++;
         //MIRAR SIEMPRE A LA CAMARA
         var x = -cubes.position.x + camera.position.x;
