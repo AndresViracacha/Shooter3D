@@ -122,6 +122,8 @@
             var intersects = raycaster.intersectObjects(scene.children);
             if(intersects[0]){
                 contenedorPistola.children[0].position.y=5
+                scene.remove(intersects[0].object)
+                console.log(intersects[0].object)
             }
             console.log(intersects)
             //renderer.render( scene, camera );
