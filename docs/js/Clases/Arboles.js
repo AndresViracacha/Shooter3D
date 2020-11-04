@@ -4,7 +4,8 @@ function Arbol() {
     explosionMaterial.transparent = true
     explosionMaterial.depthTest = true
     explosionMaterial.depthWrite = false
-    var cubeGeometry = new THREE.PlaneGeometry(30, 36);
+    var tamaño= 20
+    var cubeGeometry = new THREE.PlaneGeometry(tamaño*5, tamaño*6);
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
     this.cube.position.set(0, 12, 0);
     var cubes = this.cube;
@@ -26,16 +27,17 @@ function crearArboles(cameras) {
         arbolesd.push(new Arbol())
     }
     for (let i = 0; i < arbolesd.length; i++) {
-        arbolesd[i].cube.position.x = i * 20 + 50
-        arbolesd[i].cube.position.z = i * 10 + 50
+        arbolesd[i].cube.position.x = i * 10 + 50
+        arbolesd[i].cube.position.z = i * 30 + 50
         arbolesd[i].crear(cameras)
     }
     for (let i = 0; i < 10; i++) {
         arbolesi.push(new Arbol())
     }
     for (let i = 0; i < arbolesi.length; i++) {
-        arbolesi[i].cube.position.x = -i * 20 - 50
-        arbolesi[i].cube.position.z = i * 10 + 50
+        arbolesi[i].cube.position.x = -i * 10 - 50
+        arbolesi[i].cube.position.z = i * 30 + 50
+        arbolesi[i].crear(cameras)
     }
 }
 
