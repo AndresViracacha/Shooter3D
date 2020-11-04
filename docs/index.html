@@ -30,7 +30,7 @@
             //arreglos para los arboles
             var arbolesd = [];
             var arbolesi = [];
-            
+
             var clock = new THREE.Clock();
             var enemigoNumero = 0;
             //VARIABLES RAYCAST
@@ -111,7 +111,7 @@
             }, false);
 
             //DeviceOrientation
-            //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+            var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
             //AUDIO 
             var audio = new Audio();
@@ -123,7 +123,7 @@
                 crearEnemigos(contenedorCamara);
                 raycaster.setFromCamera(mouse, contenedorCamara.children[0]);
                 stats.update();
-                //controls.update();
+                controls.update();
                 requestAnimationFrame(animate);
                 var intersects = raycaster.intersectObjects(scene.children);
                 if (intersects[0] && a == 0) {
