@@ -21,14 +21,14 @@ function Arbol() {
     }
 }
 
-function crearArboles(camera) {
+function crearArboles(cameras) {
     for (let i = 0; i < 10; i++) {
         arbolesd.push(new Arbol())
     }
     for (let i = 0; i < arbolesd.length; i++) {
         arbolesd[i].cube.position.x = i * 20 + 50
         arbolesd[i].cube.position.z = i * 10 + 50
-        arbolesd[i].crear(camera)
+        arbolesd[i].crear(cameras)
     }
     for (let i = 0; i < 10; i++) {
         arbolesi.push(new Arbol())
