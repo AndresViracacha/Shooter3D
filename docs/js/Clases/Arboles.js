@@ -6,7 +6,7 @@ function Arbol() {
     explosionMaterial.depthWrite = false
     var cubeGeometry = new THREE.PlaneGeometry(30, 36);
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
-    this.cube.position.set(0, 5, 0);
+    this.cube.position.set(0, 12, 0);
     var cubes = this.cube;
     scene.add(this.cube);
     this.crear = function (camera) {

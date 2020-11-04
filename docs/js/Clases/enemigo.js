@@ -9,7 +9,7 @@ function Enemigo() {
     var cubeGeometry = new THREE.PlaneGeometry(10, 12);
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
     this.cube.name="sans"
-    this.cube.position.set(0, 5, 0);
+    this.cube.position.set(0, 0, 0);
     var cubes = this.cube;
     scene.add(this.cube);
     this.crear = function (camera) {
