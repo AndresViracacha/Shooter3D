@@ -8,6 +8,7 @@ function Enemigo() {
     explosionMaterial.depthWrite = false
     var cubeGeometry = new THREE.PlaneGeometry(10, 12);
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
+    this.cube.name="sans"
     this.cube.position.set(0, 5, 0);
     var cubes = this.cube;
     scene.add(this.cube);
@@ -66,6 +67,4 @@ function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDurat
 }
 function alerta() {
     let enemigos = [];
-
-
 }
