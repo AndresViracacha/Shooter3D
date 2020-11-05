@@ -3,7 +3,7 @@ function Audio(){
     camera.add(listener);
     var sound = new THREE.Audio(listener);
     var audioLoader = new THREE.AudioLoader(manager);
-    audioLoader.load('audio/megalovania.mp3', function (buffer) {
+    audioLoader.load('audio/megalovaniamini.mp3', function (buffer) {
         sound.setBuffer(buffer);
         sound.setLoop(true);
         sound.setVolume(0.5);
