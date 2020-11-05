@@ -1,5 +1,5 @@
 function Pistola() {
-    var loader = new THREE.FBXLoader(manager);
+    var loader = new THREE.FBXLoader();
         //tiene 36 caras|
         loader.load('Modelos3d/Pistola.fbx', function (objects) {
             objects.name = "jelo";
