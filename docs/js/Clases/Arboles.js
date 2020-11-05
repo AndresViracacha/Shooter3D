@@ -27,16 +27,16 @@ function crearArboles(cameras) {
         arbolesd.push(new Arbol())
     }
     for (let i = 0; i < arbolesd.length; i++) {
-        arbolesd[i].cube.position.x = i * 10 + 50
-        arbolesd[i].cube.position.z = i * 30 + 50
+        arbolesd[i].cube.position.x = i * 10 + 60
+        arbolesd[i].cube.position.z = i * 30 + 60
         arbolesd[i].crear(cameras)
     }
     for (let i = 0; i < 10; i++) {
         arbolesi.push(new Arbol())
     }
     for (let i = 0; i < arbolesi.length; i++) {
-        arbolesi[i].cube.position.x = -i * 10 - 50
-        arbolesi[i].cube.position.z = i * 30 + 50
+        arbolesi[i].cube.position.x = -i * 10 - 60
+        arbolesi[i].cube.position.z = i * 30 + 60
         arbolesi[i].crear(cameras)
     }
 }

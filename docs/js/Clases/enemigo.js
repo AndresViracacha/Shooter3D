@@ -8,10 +8,12 @@ function Enemigo() {
     explosionMaterial.depthWrite = false
     var cubeGeometry = new THREE.PlaneGeometry(10, 12);
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
-    this.cube.name="sans"
+    this.cube.name = "sans"
     this.cube.position.set(0, 0, 0);
     var cubes = this.cube;
     scene.add(this.cube);
+    //Si se acerca mucho
+
     this.crear = function (camera) {
         cubes.position.z++;
         //MIRAR SIEMPRE A LA CAMARA
@@ -26,6 +28,10 @@ function Enemigo() {
         //Animacion objeto
         var delta = clock.getDelta();
         boomer.update(1000 * delta);
+        //Si se acerca mucho
+        if (this.cube.position.z > 280) {
+            scene.remove(this.cube)
+        }
     }
 
 }
