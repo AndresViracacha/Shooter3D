@@ -21,6 +21,7 @@
     <script src="js/Clases/luces.js"></script>
     <script src="js/Clases/pistola.js"></script>
     <script src="js/Clases/Arboles.js"></script>
+    <script src="js/Clases/utils.js"></script>
 </head>
 
 <body>
@@ -99,16 +100,18 @@
         let enemigos = [];
         var i = 0;
         function crearEnemigos(contenedorCamara, numero) {
-            if (i == 100) {
+            if (i == 50) {
                 enemigos.push(new Enemigo)
                 i = 0;
             }
             if (enemigos.length > 0) {
+                Math.random()
                 for (let i = 0; i < enemigos.length; i++) {
                     enemigos[i].crear(contenedorCamara)
-                    enemigos[i].cube.position.x = 15
+                    //enemigos[i].cube.position.x = randomi(-15,15)
                 }
             }
+
             i++;
         }
 
@@ -125,7 +128,7 @@
         }, false);
 
         //DeviceOrientation
-        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //AUDIO 
         var audio = new Audio();
@@ -138,7 +141,7 @@
             crearEnemigos(contenedorCamara);
             raycaster.setFromCamera(mousi, camera);
             stats.update();
-            controls.update();
+            //controls.update();
             requestAnimationFrame(animate);
             var intersects = raycaster.intersectObjects(scene.children);
             if (intersects[0] && a == 0) {
