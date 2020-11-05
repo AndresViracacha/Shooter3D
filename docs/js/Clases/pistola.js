@@ -14,5 +14,5 @@ function Pistola() {
         contenedorCamara.add(camera)
         contenedorCamara.add(contenedorPistola)
         contenedorCamara.position.z = 300
-        contenedorCamara.position.x = 0
+        contenedorCamara.position.x = 5
 }

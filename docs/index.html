@@ -36,6 +36,7 @@
             //VARIABLES RAYCAST
             var raycaster = new THREE.Raycaster();
             var mouse = new THREE.Vector2();
+            var mousi = new THREE.Vector2();
             //Escena
             var scene = new THREE.Scene();
             scene.background = new THREE.Color(0x000010);
@@ -132,7 +133,7 @@
                 //arboles
                 //console.log(a)
                 crearEnemigos(contenedorCamara);
-                raycaster.setFromCamera(mouse, contenedorCamara.children[0]);
+                raycaster.setFromCamera(mousi, camera);
                 stats.update();
                 controls.update();
                 requestAnimationFrame(animate);
