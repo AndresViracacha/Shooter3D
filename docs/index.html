@@ -99,7 +99,8 @@
         //el pepe
         let enemigos = [];
         var i = 0;
-        function crearEnemigos(contenedorCamara, numero) {
+        let resVidas = 30;
+        function crearEnemigos(contenedorCamara) {
             if (i == 50) {
                 enemigos.push(new Enemigo)
                 i = 0;
@@ -107,14 +108,13 @@
             if (enemigos.length > 0) {
                 Math.random()
                 for (let i = 0; i < enemigos.length; i++) {
-                    enemigos[i].crear(contenedorCamara)
+                    enemigos[i].crear(contenedorCamara,resVidas)
                     //enemigos[i].cube.position.x = randomi(-15,15)
                 }
             }
-
             i++;
         }
-
+        
 
         crearArboles(contenedorCamara);
 
@@ -128,20 +128,17 @@
         }, false);
 
         //DeviceOrientation
-        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //AUDIO 
         var audio = new Audio();
 
         //animateeeeeeeeeeeeeeeeeee
         var animate = function () {
-            console.log(scene.children.length)
-            //arboles
-            //console.log(a)
             crearEnemigos(contenedorCamara);
             raycaster.setFromCamera(mousi, camera);
             stats.update();
-            //controls.update();
+            controls.update();
             requestAnimationFrame(animate);
             var intersects = raycaster.intersectObjects(scene.children);
             if (intersects[0] && a == 0) {

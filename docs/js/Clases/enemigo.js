@@ -14,7 +14,7 @@ function Enemigo() {
     scene.add(this.cube);
     //Si se acerca mucho
 
-    this.crear = function (camera) {
+    this.crear = function (camera,vida) {
         cubes.position.z++;
         //MIRAR SIEMPRE A LA CAMARA
         var x = -cubes.position.x + camera.position.x;
@@ -27,13 +27,12 @@ function Enemigo() {
         cubes.rotation.y = angulo;
         //Animacion objeto
         var delta = clock.getDelta();
-        boomer.update(1000 * delta);
+        boomer.update(2500 * delta);
         //Si se acerca mucho
-        if (this.cube.position.z > 280) {
+        if (this.cube.position.z == 280) {
             scene.remove(this.cube)
         }
     }
-
 }
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration) {
     // note: texture passed by reference, will be updated by the update function.
@@ -70,7 +69,4 @@ function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDurat
             texture.offset.y = currentRow / this.tilesVertical;
         }
     };
-}
-function alerta() {
-    let enemigos = [];
 }
