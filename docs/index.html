@@ -132,10 +132,10 @@
         }, false);
 
         //DeviceOrientation
-        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //AUDIO 
-        var audio = new Audio();
+        var audiolo = new Audio();
         var estado = true
 
         //animateeeeeeeeeeeeeeeeeee
@@ -149,10 +149,13 @@
                 if (contenedorCamara.children[0].name == "adios") {
                     vida--
                 }
+                if(vida==0){
+                    estado=false
+                }
                 console.log(vida)
                 raycaster.setFromCamera(mousi, camera);
                 stats.update();
-                controls.update();
+                //controls.update();
                 var intersects = raycaster.intersectObjects(scene.children);
                 if (intersects[0] && a == 0) {
                     if (intersects[0].object.name == "sans") {
@@ -160,12 +163,18 @@
                         a = 1;
                     }
                 }
+                if(vida==0){
+                    alert("lo siento has perdido")
+
+                }
             }
 
             //renderer.render( scene, camera );
             effect.render(scene, camera);
         };
         animate();
+
+        
     </script>
     <div class="iz"></div>
     <div class="de"></div>

@@ -9,11 +9,11 @@ function Audio(){
         sound.setVolume(0.5);
         sound.play();
     });  */  
-    var sound = new Howl({
-        src: ['audio/megalovaniamini.mp3'],
+    this.sound = new Howl({
+        src: ['audio/megalovania.mp3'],
         loop: true,
-        volume: 0.5
+        volume: 0.2
       });
       
-      sound.play();
+    this.sound.play();
 }
