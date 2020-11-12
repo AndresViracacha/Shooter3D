@@ -14,7 +14,7 @@ function Enemigo() {
     scene.add(this.cube);
     //Si se acerca mucho
 
-    this.crear = function (camera,vida) {
+    this.crear = function (camera) {
         cubes.position.z++;
         //MIRAR SIEMPRE A LA CAMARA
         var x = -cubes.position.x + camera.position.x;
@@ -31,7 +31,9 @@ function Enemigo() {
         //Si se acerca mucho
         if (this.cube.position.z == 280) {
             scene.remove(this.cube)
+            contenedorCamara.children[0].name="adios"
         }
+
     }
 }
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration) {
