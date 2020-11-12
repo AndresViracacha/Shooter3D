@@ -132,10 +132,12 @@
         }, false);
 
         //DeviceOrientation
-        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
 
         //AUDIO 
         var audiolo = new Audio();
+        audiolo.beginsnd.play()
+
         var estado = true
 
         //animateeeeeeeeeeeeeeeeeee
@@ -155,7 +157,7 @@
                 console.log(vida)
                 raycaster.setFromCamera(mousi, camera);
                 stats.update();
-                //controls.update();
+                controls.update();
                 var intersects = raycaster.intersectObjects(scene.children);
                 if (intersects[0] && a == 0) {
                     if (intersects[0].object.name == "sans") {
@@ -164,8 +166,11 @@
                     }
                 }
                 if(vida==0){
+                    audiolo.beginsnd.fade(0.5, 0,1000)
+                    //audiolo.beginsnd.stop();
+                    audiolo.gosnd.play();
+                    audiolo.gosnd.fade(0, 0.5,5000)
                     alert("lo siento has perdido")
-
                 }
             }
 

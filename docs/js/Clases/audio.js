@@ -1,4 +1,4 @@
-function Audio(){
+function Audio() {
     /* var listener = new THREE.AudioListener();
     camera.add(listener);
     var sound = new THREE.Audio(listener);
@@ -8,12 +8,15 @@ function Audio(){
         sound.setLoop(true);
         sound.setVolume(0.5);
         sound.play();
-    });  */  
-    this.sound = new Howl({
-        src: ['audio/megalovania.mp3'],
+    });  */
+    this.beginsnd = new Howl({
+        src: ['audio/megalovaniamini.mp3'],
         loop: true,
-        volume: 0.2
-      });
-      
-    this.sound.play();
+        volume: 0.4
+    });
+    this.gosnd = new Howl({
+        src: ['audio/gameover.mp3'],
+        loop: true,
+        volume: 0.4
+    });
 }
