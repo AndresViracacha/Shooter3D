@@ -7,6 +7,7 @@ function Enemigo() {
     explosionMaterial.depthTest = true
     explosionMaterial.depthWrite = false
     var cubeGeometry = new THREE.PlaneGeometry(10, 12);
+    cubeGeometry.name=randomi(0,10000000)
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
     this.cube.name = "sans"
     this.cube.position.set(randomi(-15,15), 0, 0);
@@ -14,26 +15,18 @@ function Enemigo() {
     scene.add(this.cube);
     //Si se acerca mucho
 
-    this.crear = function (camera) {
+    this.crear = function () {
         cubes.position.z++;
         //MIRAR SIEMPRE A LA CAMARA
-        var x = -cubes.position.x + camera.position.x;
-        var z = -cubes.position.z + camera.position.z;
-        var hipotenusa = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2))
-        var angulo = (Math.acos(z / hipotenusa));
-        if (x < 0)
-            angulo = -angulo
-
-        cubes.rotation.y = angulo;
+        
         //Animacion objeto
         var delta = clock.getDelta();
         boomer.update(2500 * delta);
         //Si se acerca mucho
-        if (this.cube.position.z == 280) {
-            scene.remove(this.cube)
+        if (cubes.position.z == 280) {
+            scene.remove(cubes)
             contenedorCamara.children[0].name="adios"
         }
-
     }
 }
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration) {

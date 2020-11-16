@@ -27,3 +27,10 @@ canvas{
     top: 50%;
     right: 75%;
 }
+.Vidas{
+    color: #FFFFFF;
+    z-index: 4000;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
