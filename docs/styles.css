@@ -34,3 +34,6 @@ canvas{
     top: 2%;
     right: 2%;
 }
+img{
+    position: absolute;
+}
