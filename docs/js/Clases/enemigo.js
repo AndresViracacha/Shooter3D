@@ -10,7 +10,7 @@ function Enemigo() {
     cubeGeometry.name=randomi(0,10000000)
     this.cube = new THREE.Mesh(cubeGeometry, explosionMaterial);
     this.cube.name = "sans"
-    this.cube.position.set(randomi(-15,15), 0, 0);
+    this.cube.position.set(randomi(2,4), 0, 0);
     var cubes = this.cube;
     scene.add(this.cube);
     //Si se acerca mucho
@@ -28,6 +28,19 @@ function Enemigo() {
             contenedorCamara.children[0].name="adios"
         }
     }
+}
+function crearEnemigos(contenedorCamara) {
+    if (i == 50) {
+        enemigos.push(new Enemigo)
+        i = 0;
+    }
+    if (enemigos.length > 0) {
+        for (let i = 0; i < enemigos.length; i++) {
+            enemigos[i].crear(contenedorCamara)
+            //enemigos[i].cube.position.x = randomi(-15,15)
+        }
+    }
+    i++;
 }
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration) {
     // note: texture passed by reference, will be updated by the update function.

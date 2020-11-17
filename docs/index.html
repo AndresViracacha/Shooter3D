@@ -34,7 +34,7 @@
     <div class="de"></div>
     <h1 id="Vidas" class="Vidas">brrrrorooro</h1>
     <script>
-        document.documentElement.requestFullscreen();
+        
         //arreglos para los arboles
         var arbolesd = [];
         var arbolesi = [];
@@ -93,30 +93,19 @@
         //el pepe
         let enemigos = [];
         var i = 0;
-        function crearEnemigos(contenedorCamara) {
-            if (i == 50) {
-                enemigos.push(new Enemigo)
-                i = 0;
-            }
-            if (enemigos.length > 0) {
-                for (let i = 0; i < enemigos.length; i++) {
-                    enemigos[i].crear(contenedorCamara)
-                    //enemigos[i].cube.position.x = randomi(-15,15)
-                }
-            }
-            i++;
-        }
+        
         crearArboles(contenedorCamara);
         var a;
         //METODO MATAR
         window.addEventListener('pointerdown', function () {
+            document.documentElement.requestFullscreen();
             a = 0;
         }, false);
         window.addEventListener('pointerup', function () {
             a = 1;
         }, false);
         //DeviceOrientation
-        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
         //AUDIO 
         var audiolo = new Audio();
         audiolo.beginsnd.play()
@@ -150,7 +139,7 @@
                 console.log(enemigos) */
                 raycaster.setFromCamera(mousi, camera);
                 stats.update();
-                controls.update();
+                //controls.update();
                 var intersects = raycaster.intersectObjects(scene.children);
                 if (intersects[0] && a == 0) {
                     if (intersects[0].object.name == "sans") {
@@ -166,6 +155,12 @@
             effect.render(scene, camera);
         };
         animate();
+        window.onresize = function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+
+        };
     </script>
 </body>
 
