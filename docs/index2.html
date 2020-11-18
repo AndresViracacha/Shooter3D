@@ -32,8 +32,18 @@
     </div>
     <div class="iz"></div>
     <div class="de"></div>
-    <h1 id="Vidas" class="Vidas">brrrrorooro</h1>
+    <div id="contenedor" class="Vidas">
+        <h1 id="Vidasas" class="tituloVidas">brrrrorooro</h1>
+        <div id="numeroVidas">
+            <img src="images/determinacion.png" class="determinacion" id="determinacion">
+            <img src="images/determinacion.png" class="determinacion" id="determinacion">
+            <img src="images/determinacion.png" class="determinacion" id="determinacion">        
+        </div>
+    </div>
+    
+    
     <script>
+        var caja = document.getElementById("numeroVidas")
         
         //arreglos para los arboles
         var arbolesd = [];
@@ -115,7 +125,7 @@
         var animate = function () {
             console.log(clock.getElapsedTime())
             requestAnimationFrame(animate);
-            document.getElementById("Vidas").innerHTML = "Vidas: " + vida;
+            document.getElementById("Vidasas").innerHTML = "Vidas:";
 
 
             //console.log((scene.children.length-24)-disparo)
@@ -123,7 +133,8 @@
                 contenedorCamara.children[0].name = "hola"
                 crearEnemigos(contenedorCamara, vida);
                 if (contenedorCamara.children[0].name == "adios") {
-                    vida--
+                    vida--;
+                    caja.removeChild(caja.children[0])
                 }
 
                 if (vida == 0) {
@@ -132,7 +143,6 @@
                     //audiolo.beginsnd.stop();
                     audiolo.gosnd.play();
                     audiolo.gosnd.fade(0, 0.5, 5000)
-                    document.getElementById("Vidas").innerHTML = vida;
                     alert("lo siento has perdido")
                 }
                 /* console.log(scene.children.length)
@@ -159,7 +169,6 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize( window.innerWidth, window.innerHeight );
-
         };
     </script>
 </body>

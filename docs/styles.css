@@ -31,9 +31,17 @@ canvas{
     color: #FFFFFF;
     z-index: 4000;
     position: absolute;
-    top: 2%;
-    right: 2%;
+    width: 20%;
+    right: 0%;
 }
-img{
-    position: absolute;
+.determinacion{
+    width: 3ex;
+    float: right; 
+    margin: 0px 3px;
+}
+
+.tituloVidas{
+    float: left;
+    font-size: 3ex;
+    display: inline-block;
 }
