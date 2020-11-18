@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>El Pepe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.js"
+        integrity="sha512-iaZ8D6RzguOWQ+B5SLJCHPid3/2UaVIFnsNJHy068pv3r5G6kYOe+XufLqd6qNrQmaHeYR0iVyu2xkXB2llnMg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"
+        integrity="sha512-L6Z/YtIPQ7eU3BProP34WGU5yIRk7tNHk7vaC2dB1Vy1atz6wl9mCkTPPZ2Rn1qPr+vY2mZ9odZLdGYuaBk7dQ=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/librerias/stats.min.js"></script>
+    <script src="js/librerias/inflate.min.js"></script>
+    <script src="js/librerias/FBXLoader.js"></script>
+    <script src="js/librerias/StereoEffect.js"></script>
+    <script src="js/librerias/DeviceOrientationControls.js"></script>
+    <script src="js/Clases/enemigo.js"></script>
+    <script src="js/Clases/audio.js"></script>
+    <script src="js/Clases/stats.js"></script>
+    <script src="js/Clases/luces.js"></script>
+    <script src="js/Clases/pistola.js"></script>
+    <script src="js/Clases/Arboles.js"></script>
+    <script src="js/Clases/utils.js"></script>
+</head>
+
+<body>
+    <div id="ThreeJS" style="position: absolute; left:0px; top:0px">
+    </div>
+    <div class="iz"></div>
+    <div class="de"></div>
+    <h1 id="Vidas" class="Vidas">brrrrorooro</h1>
+    <script>
+        
+        //arreglos para los arboles
+        var arbolesd = [];
+        var arbolesi = [];
+        var vida = 3;
+        var clock = new THREE.Clock();
+        clock.start()
+        var enemigoNumero = 0;
+        //VARIABLES RAYCAST
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+        var mousi = new THREE.Vector2();
+        //Escena
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000010);
+        //Camara
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        //Piso
+        var floorTexture = new THREE.ImageUtils.loadTexture('images/piso.png');
+        floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+        floorTexture.repeat.set(250, 250);
+        var floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
+        var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+        var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.position.y = -5;
+        floor.rotation.x = Math.PI / 2;
+        scene.add(floor);
+        //Contenedores
+        var contenedorPistola = new THREE.Object3D();
+        var contenedorCamara = new THREE.Object3D();
+        scene.add(contenedorCamara);
+        //Render
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container = document.getElementById('ThreeJS');
+        container.appendChild(renderer.domElement);
+        //mouse para RAYCAST
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        }
+        window.addEventListener('mousemove', onMouseMove, false);
+        //luces
+        var luz = new Luz();
+        //cubo
+        var geometry = new THREE.BoxGeometry();
+        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        //stereo
+        effect = new THREE.StereoEffect(renderer);
+        effect.setSize(window.innerWidth, window.innerHeight);
+        //FBX-------------------------------------------------------
+        var pistola = new Pistola();
+        //stats
+        Estadisticas();
+        //el pepe
+        let enemigos = [];
+        var i = 0;
+        
+        crearArboles(contenedorCamara);
+        var a;
+        //METODO MATAR
+        window.addEventListener('pointerdown', function () {
+            document.documentElement.requestFullscreen();
+            a = 0;
+        }, false);
+        window.addEventListener('pointerup', function () {
+            a = 1;
+        }, false);
+        //DeviceOrientation
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        //AUDIO 
+        var audiolo = new Audio();
+        audiolo.beginsnd.play()
+        var estado = true
+        var disparo = 0;
+        //animateeeeeeeeeeeeeeeeeee
+        var animate = function () {
+            console.log(clock.getElapsedTime())
+            requestAnimationFrame(animate);
+            document.getElementById("Vidas").innerHTML = "Vidas: " + vida;
+
+
+            //console.log((scene.children.length-24)-disparo)
+            if (estado) {
+                contenedorCamara.children[0].name = "hola"
+                crearEnemigos(contenedorCamara, vida);
+                if (contenedorCamara.children[0].name == "adios") {
+                    vida--
+                }
+
+                if (vida == 0) {
+                    estado = false
+                    audiolo.beginsnd.fade(0.5, 0, 1000)
+                    //audiolo.beginsnd.stop();
+                    audiolo.gosnd.play();
+                    audiolo.gosnd.fade(0, 0.5, 5000)
+                    document.getElementById("Vidas").innerHTML = vida;
+                    alert("lo siento has perdido")
+                }
+                /* console.log(scene.children.length)
+                console.log(enemigos) */
+                raycaster.setFromCamera(mousi, camera);
+                stats.update();
+                controls.update();
+                var intersects = raycaster.intersectObjects(scene.children);
+                if (intersects[0] && a == 0) {
+                    if (intersects[0].object.name == "sans") {
+                        //console.log(intersects[0].object.geometry.name)
+                        enemigos.splice(enemigos.findIndex(sans => sans.cube.geometry.name === intersects[0].object.geometry.name), 1)
+                        scene.remove(intersects[0].object)
+                        a = 1;
+                        disparo++;
+                    }
+                }
+            }
+            //renderer.render( scene, camera );
+            effect.render(scene, camera);
+        };
+        animate();
+        window.onresize = function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+
+        };
+    </script>
+</body>
+
+</html>
