@@ -105,7 +105,7 @@
             a = 1;
         }, false);
         //DeviceOrientation
-        //var controls = new THREE.DeviceOrientationControls(contenedorCamara);
+        var controls = new THREE.DeviceOrientationControls(contenedorCamara);
         //AUDIO 
         var audiolo = new Audio();
         audiolo.beginsnd.play()
@@ -139,7 +139,7 @@
                 console.log(enemigos) */
                 raycaster.setFromCamera(mousi, camera);
                 stats.update();
-                //controls.update();
+                controls.update();
                 var intersects = raycaster.intersectObjects(scene.children);
                 if (intersects[0] && a == 0) {
                     if (intersects[0].object.name == "sans") {
