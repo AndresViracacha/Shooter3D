@@ -32,9 +32,11 @@
     </div>
     <div class="iz"></div>
     <div class="de"></div>
-    <div id="contenedor" class="Vidas">
-        <h1 id="Vidasas" class="tituloVidas">brrrrorooro</h1>
-        <div id="numeroVidas">
+    <div class="Contenedor" id="contenedor" >
+        <div class="tituloVidas">
+            <h1 class="textoVida" id="Vidasas" ></h1>
+        </div>
+        <div id="numeroVidas" class="cajavidas">
             <img src="images/determinacion.png" class="determinacion" id="determinacion">
             <img src="images/determinacion.png" class="determinacion" id="determinacion">
             <img src="images/determinacion.png" class="determinacion" id="determinacion">        
@@ -123,11 +125,7 @@
         var disparo = 0;
         //animateeeeeeeeeeeeeeeeeee
         var animate = function () {
-            console.log(clock.getElapsedTime())
             requestAnimationFrame(animate);
-            document.getElementById("Vidasas").innerHTML = "Vidas:";
-
-
             //console.log((scene.children.length-24)-disparo)
             if (estado) {
                 contenedorCamara.children[0].name = "hola"
